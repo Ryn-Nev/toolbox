@@ -29,6 +29,7 @@ if __name__ == "__main__":
         # get into the directory of the unzipped file
         filepath = (sys.argv[1][:-4])
         os.chdir(filepath)
+        p = Path(filepath)
 
         # Get the user's preference for deleting the original zip files
         print("Do you want to delete the original zip files after extraction? (y/n)")
