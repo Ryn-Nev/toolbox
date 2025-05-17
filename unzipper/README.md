@@ -4,7 +4,7 @@ Created with assistance from Claude AI
 ---------------------------------------------------------------------------------------------------
 # Unzipper
 ==========
-A simple Python script to extract ZIP files to folders with the same name.
+A simple tool to extract ZIP files to folders with the same name.
 
 ## Features
 -----------
@@ -14,6 +14,8 @@ A simple Python script to extract ZIP files to folders with the same name.
 - Can be run from any directory after installation
 - Works on both Windows and macOS
 - Windows: Right-click context menu integration for ZIP files
+- No administrator privileges required
+- Portable installation in user's local directory
 
 ## Prerequisites
 

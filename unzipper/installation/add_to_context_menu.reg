@@ -1,7 +1,9 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\Software\Classes\SystemFileAssociations\.zip\shell\Unzip with Unzipper]
+@="Unzip with Unzipper"
 "Icon"="<<<INSTALL_PATH>>>\\unzipper.exe"
+"NoWorkingDirectory"=""
 
 [HKEY_CURRENT_USER\Software\Classes\SystemFileAssociations\.zip\shell\Unzip with Unzipper\command]
-@="<<<INSTALL_PATH>>>\\unzipper.exe \"%1\""
+@="\"C:\\Users\\[YourUser]\\AppData\\Local\\Unzipper\\unzipper.exe\" \"%1\""
