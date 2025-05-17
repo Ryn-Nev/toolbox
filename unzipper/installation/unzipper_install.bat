@@ -46,6 +46,26 @@ if errorlevel 1 (
     exit /b 1
 )
 
+:: === Add Unzipper to user PATH ===
+set "NEW_PATH=%INSTALL_DIR%"
+set "CUR_PATH="
+for /f "tokens=2*" %%A in ('reg query "HKCU\Environment" /v Path 2^>nul') do set "CUR_PATH=%%B"
+echo Current user PATH: %CUR_PATH%
+echo.
+
+:: Check if already in PATH
+echo %CUR_PATH% | find /I "%NEW_PATH%" >nul
+if errorlevel 1 (
+    if defined CUR_PATH (
+        set "NEW_PATH=%CUR_PATH%;%NEW_PATH%"
+    )
+    echo Adding Unzipper to user PATH...
+    setx Path "%NEW_PATH%"
+) else (
+    echo Unzipper is already in the user PATH.
+)
+echo.
+
 echo.
 echo Installation completed successfully!
 echo You can now right-click any .zip file and select 'Unzip with Unzipper'.
