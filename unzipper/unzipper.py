@@ -24,7 +24,26 @@ def extract_zip(zip_path):
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         # If a file was provided as argument, extract it
-        extract_zip(sys.argv[1])
+        p = Path(sys.argv[1])
+
+        # Get the user's preference for deleting the original zip files
+        print("Do you want to delete the original zip files after extraction? (y/n)")
+        delete_original = input("Enter 'y' to delete the original zip files, 'n' to keep them: ").strip().lower()
+        if delete_original not in ['y', 'n']:
+            print("Invalid input. Please enter 'y' or 'n'.")
+            sys.exit(1)
+
+        remove = delete_original == 'y'
+        if remove:
+            print("Original zip files will be deleted after extraction.")
+
+        # Extract all zip files in the directory and subdirectories
+        for f in p.rglob('*.zip'):
+            extract_zip(f)
+            if remove:
+                os.remove(f)
+                print(f"Deleted original zip file '{f.name}'.")
+
     else:
         # Get the current working directory
         current_dir = os.getcwd()

@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 :: === Set install path ===
 set "INSTALL_DIR=%LocalAppData%\Unzipper"
-set "EXE_URL=https://github.com/Ryn-Nev/toolbox/blob/main/unzipper/installation/unzipper.exe"
+set "EXE_URL=https://raw.githubusercontent.com/Ryn-Nev/toolbox/main/unzipper/installation/unzipper.exe"
 set "REG_FILE=%TEMP%\add_to_context_menu.reg"
 
 echo Creating install directory at: %INSTALL_DIR%
