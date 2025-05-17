@@ -6,4 +6,12 @@ Windows Registry Editor Version 5.00
 "NoWorkingDirectory"=""
 
 [HKEY_CURRENT_USER\Software\Classes\SystemFileAssociations\.zip\shell\Unzip with Unzipper\command]
-@="\"C:\\Users\\[YourUser]\\AppData\\Local\\Unzipper\\unzipper.exe\" \"%1\""
+@="\"C:\\Users\\ryann\\AppData\\Local\\Unzipper\\unzipper.exe\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Classes\*\shell\Unzip with Unzipper]
+@="Unzip with Unzipper"
+
+[HKEY_CURRENT_USER\Software\Classes\*\shell\Unzip with Unzipper\command]
+@="\"C:\\Users\\ryann\\AppData\\Local\\Unzipper\\unzipper.exe\" \"%1\""
+
+HKEY_CLASSES_ROOT\SystemFileAssociations\.zip\shell\Unzip with Unzipper\command
