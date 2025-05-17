@@ -24,7 +24,11 @@ def extract_zip(zip_path):
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         # If a file was provided as argument, extract it
-        p = Path(sys.argv[1])
+        extract_zip(sys.argv[1])
+
+        # get into the directory of the unzipped file
+        filepath = (sys.argv[1][:-4])
+        os.chdir(filepath)
 
         # Get the user's preference for deleting the original zip files
         print("Do you want to delete the original zip files after extraction? (y/n)")
