@@ -376,6 +376,7 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
 # ----- Main method -------------------------------------------------------------------------------------
 
     # Get the CSV file path from user
+def main():
     csv_file = input("Enter the path to your CSV file: ").strip('"')
 
     # Validate the path
