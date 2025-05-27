@@ -47,4 +47,30 @@ echo.
 echo.
 echo Installation completed successfully!
 echo.
+
+@REM :: === Create desktop shortcut ===
+@REM echo Creating desktop shortcut...
+@REM set "SHORTCUT_NAME=UV-processor"
+@REM set "SHORTCUT_PATH=%UserProfile%\Desktop\%SHORTCUT_NAME%.lnk"
+@REM set "ICON_PATH=%INSTALL_DIR%\UV-icon.ico"
+
+@REM :: === Prompt for desktop shortcut ===
+@REM choice /M "Do you want to create a desktop shortcut for UV-processor?"
+@REM if errorlevel 2 goto skip_shortcut
+
+@REM :: === Create desktop shortcut ===
+@REM echo Creating desktop shortcut...
+@REM set "SHORTCUT_NAME=UV-processor"
+@REM set "SHORTCUT_PATH=%UserProfile%\Desktop\%SHORTCUT_NAME%.lnk"
+@REM set "ICON_PATH=%INSTALL_DIR%\UV-icon.ico"
+
+@REM :: Use PowerShell to create the shortcut
+@REM powershell -Command ^
+@REM $WshShell = New-Object -ComObject WScript.Shell; ^
+@REM $Shortcut = $WshShell.CreateShortcut('%SHORTCUT_PATH%'); ^
+@REM $Shortcut.TargetPath = '%INSTALL_DIR%\UV-processor.exe'; ^
+@REM $Shortcut.IconLocation = '%INSTALL_DIR%\UV-processor.exe,0'
+@REM $Shortcut.WorkingDirectory = '%INSTALL_DIR%'; ^
+@REM $Shortcut.Save()
+
 pause
