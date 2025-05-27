@@ -375,14 +375,21 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
 
 # ----- Main method -------------------------------------------------------------------------------------
 
-def main():
-    # Get the base directory as the location of this script
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    # Get the CSV file path from user
+    csv_file = input("Enter the path to your CSV file: ").strip('"')
 
-    # Set the current working directory to the script's location
+    # Validate the path
+    if not os.path.isfile(csv_file):
+        print("Error: File does not exist.")
+        return
+
+    # Set base_dir to the directory containing the CSV file
+    base_dir = os.path.dirname(os.path.abspath(csv_file))
+
+    # Optionally change working directory to base_dir (optional)
     os.chdir(base_dir)
 
-    # Create directories if they don't exist
+    # Create directories relative to the CSV file's location
     os.makedirs(os.path.join(base_dir, 'output'), exist_ok=True)
     os.makedirs(os.path.join(base_dir, 'output/processed_uv_data'), exist_ok=True)
     os.makedirs(os.path.join(base_dir, 'output/normalised_uv_data'), exist_ok=True)
@@ -390,11 +397,8 @@ def main():
     os.makedirs(os.path.join(base_dir, 'output/rate_plots'), exist_ok=True)
     os.makedirs(os.path.join(base_dir, 'output/initial_rates'), exist_ok=True)
 
-    print("Directories made succesfully!\n")
+    print("Directories made successfully in:\n", base_dir)
 
-    # Get the CSV file path from user
-    csv_file = input("Enter the path to your CSV file: ")
-    
     # Get run time and interval from user
     run_time = float(input("Enter the total run time of your UV experiment in seconds: "))
     interval = float(input("Enter the time interval between readings in seconds: "))
