@@ -74,6 +74,19 @@ if errorlevel 1 (
     exit /b 1
 )
 
+:: === Optional: Create a UV-processor.cmd shim for direct execution ===
+:: === Download UVP.cmd shim ===
+set "SHIM_URL=https://raw.githubusercontent.com/Ryn-Nev/toolbox/main/UV-processor/installation/UVP.cmd"
+set "SHIM_PATH=%INSTALL_DIR%\UVP.cmd"
+
+echo Downloading UVP.cmd shim to %SHIM_PATH%...
+powershell -Command "try { Invoke-WebRequest -Uri '%SHIM_URL%' -OutFile '%SHIM_PATH%' } catch { Write-Host 'Error downloading UVP.cmd'; exit 1 }"
+if errorlevel 1 (
+    echo Error: Failed to download UVP.cmd
+    pause
+    exit /b 1
+)
+
 :: === Add script directory to user PATH if not already ===
 set "NEW_PATH=%INSTALL_DIR%"
 set "CUR_PATH="
@@ -92,14 +105,6 @@ if errorlevel 1 (
 ) else (
     echo UV-processor.py directory is already in the user PATH.
 )
-
-:: === Optional: Create a UV-processor.cmd shim for direct execution ===
-set "SHIM_PATH=%INSTALL_DIR%\UV-processor.cmd"
-(
-    echo @echo off
-    echo python "%%~dp0UV-processor.py" %%*
-) > "%SHIM_PATH%"
-
 
 echo UV-processor.py installed successfully.
 
