@@ -399,6 +399,7 @@ def main():
     os.makedirs(os.path.join(base_dir, 'output/initial_rates'), exist_ok=True)
 
     print("Directories made successfully in:\n", base_dir)
+    print()
 
     # Get run time and interval from user
     run_time = float(input("Enter the total run time of your UV experiment in seconds: "))
