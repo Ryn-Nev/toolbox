@@ -37,15 +37,14 @@ if errorlevel 1 (
     if defined CUR_PATH (
         set "NEW_PATH=%CUR_PATH%;%NEW_PATH%"
     )
-    echo Adding Unzipper to user PATH...
+    echo Adding UV-processor to user PATH...
     setx Path "%NEW_PATH%"
 ) else (
-    echo Unzipper is already in the user PATH.
+    echo UV-processor is already in the user PATH.
 )
 echo.
 
 echo.
 echo Installation completed successfully!
-echo You can now right-click any .zip file and select 'Unzip with Unzipper'.
 echo.
 pause
