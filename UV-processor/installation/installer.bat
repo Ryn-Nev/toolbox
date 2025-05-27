@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 :: === Set install path ===
 set "INSTALL_DIR=%LocalAppData%\UV-processor"
-set "EXE_URL=https://raw.githubusercontent.com/Ryn-Nev/toolbox/main/unzipper/installation/unzipper.exe"
+set "EXE_URL=https://raw.githubusercontent.com/Ryn-Nev/toolbox/main/UV-processor/installation/UV-processor.exe"
 
 echo Creating install directory at: %INSTALL_DIR%
 if not exist "%INSTALL_DIR%" (
@@ -16,15 +16,15 @@ if not exist "%INSTALL_DIR%" (
 )
 
 :: === Download EXE ===
-echo Downloading unzipper.exe...
-powershell -Command "try { Invoke-WebRequest -Uri '%EXE_URL%' -OutFile '%INSTALL_DIR%\unzipper.exe' } catch { Write-Host 'Error downloading unzipper.exe'; exit 1 }"
+echo Downloading UV-processor.exe...
+powershell -Command "try { Invoke-WebRequest -Uri '%EXE_URL%' -OutFile '%INSTALL_DIR%\UV-processor.exe' } catch { Write-Host 'Error downloading UV-processor.exe'; exit 1 }"
 if errorlevel 1 (
-    echo Error: Failed to download unzipper.exe
+    echo Error: Failed to download UV-processor.exe
     pause
     exit /b 1
 )
 
-:: === Add Unzipper to user PATH ===
+:: === Add UV-processor to user PATH ===
 set "NEW_PATH=%INSTALL_DIR%"
 set "CUR_PATH="
 for /f "tokens=2*" %%A in ('reg query "HKCU\Environment" /v Path 2^>nul') do set "CUR_PATH=%%B"
