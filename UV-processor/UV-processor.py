@@ -26,7 +26,7 @@ num_samples = 0
 # ----- Utility functions -------------------------------------------------------------------------
 
 def inverse_exponential(x, a, b, y0):
-                return a * np.exp(-b * x) + y0
+                return -a * np.exp(-b * x) + y0
 
 # ----- Processing functions -------------------------------------------------------------------------
 
@@ -202,6 +202,7 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
         
         print(f"\nThe wavelength determined by the programme is:")
         print(f"{max_abs_row} nm")
+        print()
 
     # Dictionary to store initial rates
     initial_rates = {}
@@ -285,21 +286,22 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
 
             # NOTE: This is a hardcoded solution to the fact that the exponential curve is not fitting correctly
             # Check here if there are any future problems
-            if (b < 0):
+            if (b < 0 or a < 0):
                 b = abs(b)
+                a = abs(a)
             
             # Calculate predictions
             y_pred = inverse_exponential(times, a, b, y0)
             
             # Calculate derivative (rate) at t=0
-            initial_rate = -1 * a * b  # derivative of a*exp(-b*x) + y0 is -a*b*exp(-b*x)
+            initial_rate = 1 * a * b  # derivative of -a*exp(-b*x) + y0 is a*b*exp(-b*x)
             
             # Generate points for smooth curve
             y_fit = inverse_exponential(x_fit, a, b, y0)
             
             # Create equation string
             if show_equation:
-                equation = f"y = {a:.2e}exp(-{b:.2e}x) + {y0:.2e}"
+                equation = f"y = -{a:.2e}exp(-{b:.2e}x) + {y0:.2e}"
         
         # Calculate R-squared
         ss_tot = np.sum((absorbances - np.mean(absorbances))**2)
