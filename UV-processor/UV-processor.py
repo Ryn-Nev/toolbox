@@ -468,11 +468,13 @@ def main():
     determine_rate(normalized_dataframes, show_equation=show_equation, fit_type=fit_type)
     
     print("\nProcessing complete! Check the following directories for results:")
-    print("- processed_uv_data/: Individual CSV files for each sample")
-    print("- normalised_uv_data/: Normalized versions of the data")
-    print("- normalised_plots/: Normalized wavelength vs absorbance plots")
-    print("- rate_plots/: Time vs absorbance plots with rate analysis")
-    print("- initial_rates/: Contains initial rates CSV and image files")
+    print("- processed_uv_data: Individual CSV files for each sample")
+    print("- normalised_uv_data: Normalized versions of the data")
+    print("- normalised_plots: Normalized wavelength vs absorbance plots")
+    print("- normalised_plots/interactive_plots: HTML interactive plots of wavelength vs absorbance")
+    print("- rate_plots: Time vs absorbance plots with rate analysis")
+    print("- rate_plots/interactive_plots: HTML interactive plots of time vs absorbance")
+    print("- initial_rates: Contains initial rates CSV and image files")
 
 # ----- Running the programme -------------------
 if __name__ == "__main__":
