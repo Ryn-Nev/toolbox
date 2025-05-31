@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
 from scipy.optimize import curve_fit
+import plotly.graph_objects as go
 
 # ----- Global variables -------------------------------------------------------------------------
 
@@ -150,25 +151,36 @@ def normalize_data(processed_dataframes) -> dict:
 def plot_absorbance_data(dataframes) -> None:
     # Directory used to store the plots
     plot_dir = 'output/normalised_plots'
+    interactive_plot_dir = 'output/normalised_plots/interactive_plots'
     
     # Plot each sample
     for sample_name, df in dataframes.items():
         plt.figure(figsize=(10, 6))
+        plotly_fig = go.Figure()
         
         # Plot each column (time point) with a different color
         for column in df.columns:
             plt.plot(df.index, df[column])
+            plotly_fig.add_trace(go.Scatter(x=df.index, y=df[column], mode='lines', name=column))
         
         plt.xlabel('Wavelength (nm)')
         plt.ylabel('Absorbance')
         plt.title(f'Absorbance vs Wavelength for {sample_name}')
         plt.grid(True)
+
+        plotly_fig.update_layout(title=f'Absorbance vs Wavelength for {sample_name}',
+                                 xaxis_title='Wavelength (nm)',
+                                 yaxis_title='Absorbance',
+                                 legend = False)
         
         # Save the plot
         plot_file = os.path.join(plot_dir, f'{sample_name}_absorbance_plot.png')
         plt.savefig(plot_file, dpi=300, bbox_inches='tight')
         plt.close()
         print(f'Saved plot for {sample_name} to {plot_file}')
+
+        plotly_fig.write_html(os.path.join(interactive_plot_dir, f'{sample_name}_absorbance_plot.html'))
+        print(f'Saved interactive plot for {sample_name} to {os.path.join(interactive_plot_dir, f"{sample_name}_absorbance_plot.html")}')
     print()
     return
 
@@ -176,6 +188,7 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
     # Directory used to store the plots
     plot_dir = 'output/rate_plots'
     rate_dir = 'output/initial_rates'
+    interactive_plot_dir = 'output/rate_plots/interactive_plots'
 
     # Getting the max absorbance wavelength from the user
     print("\nYou can either inspect the plots and give the wavelngth of max absorbance, ")
@@ -313,18 +326,21 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
         
         # Create the plot
         plt.figure(figsize=(10, 6))
+        plotly_fig = go.Figure()
         
         # Plot scatter points
         plt.scatter(times, absorbances, color='blue', label='Data points')
+        plotly_fig.add_trace(go.Scatter(x=times, y=absorbances, mode='markers', name='Data points'))
         
         # Plot best fit line
         plt.plot(x_fit, y_fit, 'r-', label='Best fit line')
+        plotly_fig.add_trace(go.Scatter(x=x_fit, y=y_fit, mode='lines', name='Best fit line'))
         
         # Add fit information to plot
         fit_info = f"R² = {r_squared:.4f}\nInitial rate = {initial_rate:.2e} s⁻¹"
         if show_equation:
-            fit_info = f"{equation}\n{fit_info}"
-        
+            fit_info = f"{equation}\n{fit_info}"     
+
         plt.text(0.02, 0.98, fit_info, 
                 transform=plt.gca().transAxes, 
                 verticalalignment='top',
@@ -335,12 +351,20 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
         plt.title(f'Absorbance vs Time for {sample_name}\nMax absorbance at {max_abs_row} nm')
         plt.grid(True)
         
+        plotly_fig.update_layout(title=f'Absorbance vs Time for {sample_name}\nMax absorbance at {max_abs_row} nm',
+                                 xaxis_title='Time (seconds)',
+                                 yaxis_title='Absorbance',
+                                 legend = False)
+        
         # Save the plot
         plot_file = os.path.join(plot_dir, f'{sample_name}_rate_plot.png')
         plt.savefig(plot_file, dpi=300, bbox_inches='tight')
         plt.close()
         print(f'Saved rate plot for {sample_name} to {plot_file}')
-    
+
+        plotly_fig.write_html(os.path.join(interactive_plot_dir, f'{sample_name}_rate_plot.html'))
+        print(f'Saved interactive plot for {sample_name} to {os.path.join(interactive_plot_dir, f"{sample_name}_rate_plot.html")}')
+    print()
     # Save initial rates to CSV
     rates_df = pd.DataFrame({'K': initial_rates})
     rates_csv_file = os.path.join(rate_dir, 'initial_rates.csv')
@@ -398,6 +422,8 @@ def main():
     os.makedirs(os.path.join(base_dir, 'output/normalised_uv_data'), exist_ok=True)
     os.makedirs(os.path.join(base_dir, 'output/normalised_plots'), exist_ok=True)
     os.makedirs(os.path.join(base_dir, 'output/rate_plots'), exist_ok=True)
+    os.makedirs(os.path.join(base_dir, 'output/normalised_plots/interactive_plots'), exist_ok=True)
+    os.makedirs(os.path.join(base_dir, 'output/rate_plots/interactive_plots'), exist_ok=True)
     os.makedirs(os.path.join(base_dir, 'output/initial_rates'), exist_ok=True)
 
     print("Directories made successfully in:\n", base_dir)
