@@ -355,6 +355,13 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
                                  xaxis_title='Time (seconds)',
                                  yaxis_title='Absorbance',
                                  showlegend = False)
+        plotly_fig.add_annotation(text=fit_info,
+                                  xref="paper",
+                                  yref="paper",
+                                  x=0.02,
+                                  y=0.98,
+                                  showarrow=False,
+                                  font=dict(size=12))
         
         # Save the plot
         plot_file = os.path.join(plot_dir, f'{sample_name}_rate_plot.png')
