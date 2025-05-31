@@ -337,9 +337,9 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
         plotly_fig.add_trace(go.Scatter(x=x_fit, y=y_fit, mode='lines', name='Best fit line'))
         
         # Add fit information to plot
-        fit_info = f"R² = {r_squared:.4f}\nInitial rate = {initial_rate:.2e} s⁻¹"
+        fit_info = f"R² = {r_squared:.4f}; \nInitial rate = {initial_rate:.2e} s⁻¹"
         if show_equation:
-            fit_info = f"{equation}\n{fit_info}"     
+            fit_info = f"{equation}; \n{fit_info}"     
 
         plt.text(0.02, 0.98, fit_info, 
                 transform=plt.gca().transAxes, 
@@ -361,7 +361,8 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
                                   x=0.02,
                                   y=0.98,
                                   showarrow=False,
-                                  font=dict(size=12))
+                                  font=dict(size=12),
+                                  align='left')
         
         # Save the plot
         plot_file = os.path.join(plot_dir, f'{sample_name}_rate_plot.png')
