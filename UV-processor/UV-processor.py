@@ -171,7 +171,7 @@ def plot_absorbance_data(dataframes) -> None:
         plotly_fig.update_layout(title=f'Absorbance vs Wavelength for {sample_name}',
                                  xaxis_title='Wavelength (nm)',
                                  yaxis_title='Absorbance',
-                                 legend = False)
+                                 showlegend = False)
         
         # Save the plot
         plot_file = os.path.join(plot_dir, f'{sample_name}_absorbance_plot.png')
@@ -354,7 +354,7 @@ def determine_rate(dataframes, show_equation=False, fit_type='exponential') -> d
         plotly_fig.update_layout(title=f'Absorbance vs Time for {sample_name}\nMax absorbance at {max_abs_row} nm',
                                  xaxis_title='Time (seconds)',
                                  yaxis_title='Absorbance',
-                                 legend = False)
+                                 showlegend = False)
         
         # Save the plot
         plot_file = os.path.join(plot_dir, f'{sample_name}_rate_plot.png')

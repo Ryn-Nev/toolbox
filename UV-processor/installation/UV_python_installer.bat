@@ -49,7 +49,7 @@ IF %ERRORLEVEL% NEQ 0 (
 
 REM Install required packages
 echo Installing required packages...
-python -m pip install pandas numpy matplotlib scipy
+python -m pip install pandas numpy matplotlib scipy plotly
 IF %ERRORLEVEL% NEQ 0 (
     echo Failed to install required packages
     exit /b 1
@@ -74,7 +74,6 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: === Optional: Create a UV-processor.cmd shim for direct execution ===
 :: === Download UVP.cmd shim ===
 set "SHIM_URL=https://raw.githubusercontent.com/Ryn-Nev/toolbox/main/UV-processor/installation/UVP.cmd"
 set "SHIM_PATH=%INSTALL_DIR%\UVP.cmd"
